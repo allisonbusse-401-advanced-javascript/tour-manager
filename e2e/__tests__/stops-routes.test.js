@@ -56,7 +56,7 @@ describe('Stops API Routes', () => {
                 "longitude": -73.9418603,
               },
               "weather": Object {
-                "forecast": "Partly cloudy throughout the day.",
+                "forecast": "Rain in the evening.",
                 "time": "2019-10-02T04:00:00.000Z",
               },
             }
@@ -65,7 +65,6 @@ describe('Stops API Routes', () => {
         });
     });
   });
-
 
   it('deletes a stop', () => {
     return postTour(tour).then(tour => {
@@ -80,11 +79,9 @@ describe('Stops API Routes', () => {
             .send({ id: stopId })
             .expect(200)
             .then(() => {
-              return request
-                .get('/api/tours')
-                .then(({ body }) => {
-                  expect(body[0].stops).toEqual([]);
-                });
+              return request.get('/api/tours').then(({ body }) => {
+                expect(body[0].stops).toEqual([]);
+              });
             });
         });
     });
@@ -98,14 +95,12 @@ describe('Stops API Routes', () => {
         .expect(200)
         .then(({ body }) => {
           const stopId = body._id;
-          console.log(tour._id);
           return request
             .put(`/api/stops/${tour._id}`)
             .send({ id: stopId, attendance: 15 })
             .expect(200)
             .then(({ body }) => {
-              expect(body.attendance).toBe(15);  
-
+              expect(body.attendance).toBe(15);
             });
         });
     });
