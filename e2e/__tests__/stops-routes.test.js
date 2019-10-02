@@ -56,12 +56,57 @@ describe('Stops API Routes', () => {
                 "longitude": -73.9418603,
               },
               "weather": Object {
-                "forecast": "Mostly cloudy throughout the day.",
-                "time": "2019-10-01T04:00:00.000Z",
+                "forecast": "Partly cloudy throughout the day.",
+                "time": "2019-10-02T04:00:00.000Z",
               },
             }
           `
           );
+        });
+    });
+  });
+
+
+  it('deletes a stop', () => {
+    return postTour(tour).then(tour => {
+      return request
+        .post(`/api/stops/${tour._id}`)
+        .send(stop)
+        .expect(200)
+        .then(({ body }) => {
+          const stopId = body._id;
+          return request
+            .delete(`/api/stops/${tour._id}`)
+            .send({ id: stopId })
+            .expect(200)
+            .then(() => {
+              return request
+                .get('/api/tours')
+                .then(({ body }) => {
+                  expect(body[0].stops).toEqual([]);
+                });
+            });
+        });
+    });
+  });
+
+  it('updates a stop with attendance', () => {
+    return postTour(tour).then(tour => {
+      return request
+        .post(`/api/stops/${tour._id}`)
+        .send(stop)
+        .expect(200)
+        .then(({ body }) => {
+          const stopId = body._id;
+          console.log(tour._id);
+          return request
+            .put(`/api/stops/${tour._id}`)
+            .send({ id: stopId, attendance: 15 })
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.attendance).toBe(15);  
+
+            });
         });
     });
   });
