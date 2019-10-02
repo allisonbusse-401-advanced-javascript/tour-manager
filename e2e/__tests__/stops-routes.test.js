@@ -1,6 +1,30 @@
 const request = require('../request');
 const db = require('../db');
 
+jest.mock('../../lib/services/maps-api');
+jest.mock('../../lib/services/weather-api');
+const getLocation = require('../../lib/services/maps-api');
+const getForecast = require('../../lib/services/weather-api');
+
+getLocation.mockResolvedValue({
+  latitude: 45.5320561,
+  longitude: -122.6061411,
+});
+getForecast.mockResolvedValue([
+  {
+    time: '2019-10-02T07:00:00.000Z',
+    forecast: 'Possible drizzle overnight.',
+    high: 63.29,
+    low: 47.07,
+  },
+  {
+    time: '2019-10-03T07:00:00.000Z',
+    forecast: 'Cloudy with snow at high elevations.',
+    high: 50.89,
+    low: 38.13,
+  }
+]);
+
 describe('Stops API Routes', () => {
   beforeEach(() => {
     return Promise.all([
