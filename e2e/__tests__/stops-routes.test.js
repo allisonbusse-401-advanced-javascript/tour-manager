@@ -14,18 +14,10 @@ describe('Stops API Routes', () => {
     activities: ['Day at Diagon Alley', 'Quidditch Match', 'Battle at Hogwarts']
   };
 
-  const tourTwo = {
-    title: 'The Sound of Music',
-    activities: ['Singing', 'Sewing Clothes', 'Swimming']
-  };
-
   const stop = {
     address: '11101'
   };
 
-  const stopTwo = {
-    address: '97214'
-  };
 
   function postTour(tour) {
     return request
