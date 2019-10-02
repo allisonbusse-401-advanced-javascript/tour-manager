@@ -8,20 +8,20 @@ const getForecast = require('../../lib/services/weather-api');
 
 getLocation.mockResolvedValue({
   latitude: 45.5320561,
-  longitude: -122.6061411,
+  longitude: -122.6061411
 });
 getForecast.mockResolvedValue([
   {
     time: '2019-10-02T07:00:00.000Z',
     forecast: 'Possible drizzle overnight.',
     high: 63.29,
-    low: 47.07,
+    low: 47.07
   },
   {
     time: '2019-10-03T07:00:00.000Z',
     forecast: 'Cloudy with snow at high elevations.',
     high: 50.89,
-    low: 38.13,
+    low: 38.13
   }
 ]);
 
@@ -41,7 +41,6 @@ describe('Stops API Routes', () => {
   const stop = {
     address: '11101'
   };
-
 
   function postTour(tour) {
     return request
@@ -68,12 +67,12 @@ describe('Stops API Routes', () => {
               "__v": 0,
               "_id": Any<String>,
               "location": Object {
-                "latitude": 40.7443091,
-                "longitude": -73.9418603,
+                "latitude": 45.5320561,
+                "longitude": -122.6061411,
               },
               "weather": Object {
-                "forecast": "Rain in the evening.",
-                "time": "2019-10-02T04:00:00.000Z",
+                "forecast": "Possible drizzle overnight.",
+                "time": "2019-10-02T07:00:00.000Z",
               },
             }
           `
